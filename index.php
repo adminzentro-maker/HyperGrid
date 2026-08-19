@@ -35,7 +35,7 @@
         <div class='grid'>
             <div class='card-small'>
                 <h2>Features</h2>
-                <p>✓ 24/7 Online<br>✓ Java & Bedrock Support<br>✓ Aktive Community</p>
+                <p>✓ 24/7 Online<br>✓ Java Support<br>✓ Aktive Community</p>
             </div>
             <div class='card-small'>
                 <h2>Regeln</h2>
