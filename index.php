@@ -1,361 +1,190 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HyperGrid | Minecraft Server</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>HyperGrid — Next-Gen Minecraft</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg-color: #030712;
-            --card-bg: rgba(15, 23, 42, 0.6);
-            --border-color: rgba(56, 189, 248, 0.15);
-            --primary: #38bdf8;
-            --primary-glow: rgba(56, 189, 248, 0.3);
-            --accent: #818cf8;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(129, 140, 248, 0.08) 0%, transparent 40%);
-            color: var(--text-main);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1000px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            margin-top: 40px;
-            margin-bottom: 40px;
-        }
-
-        /* Header & Live Status */
-        header {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #34d399;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
-        }
-
-        .pulse {
-            width: 8px;
-            height: 8px;
-            background-color: #34d399;
-            border-radius: 50%;
-            box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(52, 211, 153, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
-        }
-
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            background: linear-gradient(135deg, #fff 30%, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        p.subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        /* Glass Cards */
-        .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 35px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-        }
-
-        /* IP Box */
-        .ip-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(3, 7, 18, 0.8);
-            border: 2px solid var(--border-color);
-            padding: 15px 25px;
-            border-radius: 14px;
-            margin: 25px 0 20px 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .ip-container:hover {
-            border-color: var(--primary);
-            box-shadow: 0 0 25px var(--primary-glow);
-        }
-
-        .ip-text {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-            color: var(--primary);
-            letter-spacing: 1px;
-        }
-
-        .copy-btn {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border: none;
-            padding: 12px 28px;
-            color: #030712;
-            font-weight: 700;
-            font-size: 0.95rem;
-            border-radius: 10px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .copy-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px var(--primary-glow);
-        }
-
-        /* Grid Layouts */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .feature-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: left;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(56, 189, 248, 0.4);
-        }
-
-        .feature-card i {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #fff;
-        }
-
-        .feature-card p, .feature-card ul {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .feature-card ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .feature-card ul li i {
-            font-size: 0.9rem;
-            margin-right: 8px;
-            margin-bottom: 0;
-            color: #34d399;
-        }
-
-        /* Action Buttons Row (Discord / Store) */
-        .action-row {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-
-        .btn-social {
-            background: #5865F2;
-            color: white;
-            padding: 14px 30px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
-        }
-
-        .btn-social:hover {
-            transform: translateY(-2px);
-            background: #4752C4;
-            box-shadow: 0 6px 20px rgba(88, 101, 242, 0.5);
-        }
-
-        footer {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 20px;
-            width: 100%;
-            max-width: 1000px;
-        }
-
-        @media (max-width: 600px) {
-            .ip-container {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            950: '#030712',
+                        }
+                    }
+                }
             }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #030712;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+        .glass {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 30px -5px rgba(14, 165, 233, 0.3);
+            border-color: rgba(14, 165, 233, 0.4);
         }
     </style>
 </head>
-<body>
+<body class="text-slate-100 min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-white">
 
-    <div class="container">
-        <!-- Header -->
-        <header>
-            <div class="status-badge">
-                <div class="pulse"></div>
-                Server Online & Bereit
+    <!-- Top Floating Navbar / Header -->
+    <header class="w-full max-w-5xl mx-auto p-6 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20 font-bold text-xl">
+                H
             </div>
-            <h1>HyperGrid</h1>
-            <p class="subtitle">Das ultimative Minecraft-Erlebnis für Java & Bedrock</p>
-        </header>
+            <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">HyperGrid</span>
+        </div>
+        <a href="#discord" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 hover:bg-indigo-600/30 transition-all">
+            <i class="fa-brands fa-discord"></i> Community
+        </a>
+    </header>
 
-        <!-- Main IP Card -->
-        <section class="glass-card">
-            <h2 style="font-family: 'Orbitron', sans-serif; color: #fff; font-size: 1.5rem;">Verbinde dich jetzt</h2>
-            <div class="ip-container" onclick="copyIp()">
-                <span class="ip-text">HyperGrid.any-hosting.de</span>
-                <span style="color: var(--text-muted); font-size: 0.85rem;"><i class="fa-regular fa-copy"></i> Klicken zum Kopieren</span>
+    <!-- Main Bento Grid Container -->
+    <main class="w-full max-w-5xl mx-auto px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
+        
+        <!-- Hero / Intro Box (Spans 2 columns) -->
+        <div class="glass md:col-span-2 rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group">
+            <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Server Online
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
+                    Die nächste Evolution des <span class="bg-gradient-to-r from-sky-400 to-indigo-400 bg-clip-text text-transparent">Minecraft Gamings</span>.
+                </h1>
+                <p class="text-slate-400 text-sm sm:text-base max-w-lg mb-8">
+                    Erlebe kompromissloses, lagfreies Gameplay auf HyperGrid. Für Java und Bedrock optimiert, mit einer fantastischen Community.
+                </p>
             </div>
-            <button class="copy-btn" onclick="copyIp()">
-                <i class="fa-solid fa-clone" id="copyIcon"></i> <span id="copyText">IP in Zwischenablage</span>
-            </button>
-        </section>
-
-        <!-- Features & Rules Grid -->
-        <div class="grid-2">
-            <!-- Features -->
-            <div class="feature-card">
-                <i class="fa-solid fa-server"></i>
-                <h3>Server Features</h3>
-                <ul>
-                    <li><i class="fa-solid fa-check"></i> Java & Bedrock Kompatibilität</li>
-                    <li><i class="fa-solid fa-check"></i> 24/7 Hochverfügbarkeit</li>
-                    <li><i class="fa-solid fa-check"></i> Lagfreies Gameplay & Events</li>
-                    <li><i class="fa-solid fa-check"></i> Freundliches & aktives Team</li>
-                </ul>
-            </div>
-
-            <!-- Rules -->
-            <div class="feature-card">
-                <i class="fa-solid fa-shield-halved"></i>
-                <h3>Kurz-Regeln</h3>
-                <ul>
-                    <li><i class="fa-solid fa-circle-chevron-right" style="color: var(--primary);"></i> Kein Griefing oder Zerstören</li>
-                    <li><i class="fa-solid fa-circle-chevron-right" style="color: var(--primary);"></i> Respektvoller Umgangston</li>
-                    <li><i class="fa-solid fa-circle-chevron-right" style="color: var(--primary);"></i> Keine Hacks oder unfairen Mods</li>
-                    <li><i class="fa-solid fa-circle-chevron-right" style="color: var(--primary);"></i> Anweisungen des Teams befolgen</li>
-                </ul>
+            <div class="flex flex-wrap gap-4 items-center">
+                <a href="#connect" class="px-6 py-3.5 rounded-2xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm tracking-wide transition-all shadow-lg shadow-sky-500/25 flex items-center gap-2">
+                    <i class="fa-solid fa-gamepad"></i> Loslegen
+                </a>
+                <a href="#" class="px-6 py-3.5 rounded-2xl glass hover:bg-slate-800/80 font-semibold text-sm transition-all text-slate-300">
+                    Regelwerk
+                </a>
             </div>
         </div>
 
-        <!-- Community / Discord Card -->
-        <section class="glass-card" style="padding: 30px;">
-            <h2 style="font-family: 'Orbitron', sans-serif; color: #fff; margin-bottom: 10px; font-size: 1.3rem;">Werde Teil der Community</h2>
-            <p style="color: var.text-muted; margin-bottom: 20px; font-size: 0.95rem;">Tritt unserem Discord-Server bei für Updates, Support, Giveaways und um neue Mitspieler zu finden.</p>
-            <div class="action-row">
-                <!-- Ersetze den # durch deinen Discord Einladungslink -->
-                <a href="#" target="_blank" class="btn-social">
-                    <i class="fa-brands fa-discord" style="font-size: 1.2rem;"></i> Discord Beitreten
-                </a>
+        <!-- Live Status Card (1 column) -->
+        <div class="glass rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden">
+            <div>
+                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Live Status</div>
+                <div class="text-2xl font-bold mb-1" id="player-count">Lade...</div>
+                <p class="text-xs text-slate-400">Spieler aktuell online</p>
             </div>
-        </section>
-    </div>
+            <div class="mt-6 pt-6 border-t border-white/5 space-y-2">
+                <div class="flex justify-between text-xs text-slate-400">
+                    <span>Version:</span>
+                    <span class="text-slate-200 font-mono">Java & Bedrock</span>
+                </div>
+                <div class="flex justify-between text-xs text-slate-400">
+                    <span>Uptime:</span>
+                    <span class="text-emerald-400 font-mono">99.9%</span>
+                </div>
+            </div>
+        </div>
 
-    <footer>
+        <!-- Server IP Copy Card (Spans 2 columns) -->
+        <div id="connect" class="glass md:col-span-2 rounded-3xl p-8 glow-hover transition-all duration-300 flex flex-col justify-center">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                    <span class="text-xs font-semibold text-sky-400 uppercase tracking-wider block mb-1">Direktverbindung</span>
+                    <h3 class="text-xl font-bold">Server IP-Adresse</h3>
+                </div>
+                <button onclick="copyIp()" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 font-mono text-sky-400 font-bold text-sm transition-all flex items-center justify-center gap-3 group">
+                    <span id="ip-label">HyperGrid.any-hosting.de</span>
+                    <i class="fa-regular fa-copy text-slate-400 group-hover:text-white transition-colors"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Discord Quick Box (1 column) -->
+        <div id="discord" class="glass rounded-3xl p-8 flex flex-col justify-between bg-gradient-to-br from-indigo-950/40 to-slate-900/40">
+            <div>
+                <div class="w-12 h-12 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-xl mb-4">
+                    <i class="fa-brands fa-discord"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-1">Discord Community</h3>
+                <p class="text-xs text-slate-400 mb-4">Tritt unserem Discord bei für Events, Support und Updates.</p>
+            </div>
+            <a href="#" target="_blank" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs tracking-wide text-center transition-all shadow-lg shadow-indigo-600/20">
+                Server beitreten
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full max-w-5xl mx-auto px-6 py-6 text-center text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
         <p>&copy; 2026 HyperGrid Minecraft Server. Alle Rechte vorbehalten.</p>
+        <p class="font-mono text-slate-600">Design v4.0 Next-Gen</p>
     </footer>
 
+    <!-- Script für IP Copy & Live Player Count -->
     <script>
         function copyIp() {
             const ip = "HyperGrid.any-hosting.de";
             navigator.clipboard.writeText(ip).then(() => {
-                const textElem = document.getElementById('copyText');
-                const iconElem = document.getElementById('copyIcon');
-                
-                textElem.textContent = "Erfolgreich kopiert!";
-                iconElem.className = "fa-solid fa-check";
+                const label = document.getElementById('ip-label');
+                const originalText = label.textContent;
+                label.textContent = "Kopiert!";
+                label.classList.add("text-emerald-400");
                 
                 setTimeout(() => {
-                    textElem.textContent = "IP in Zwischenablage";
-                    iconElem.className = "fa-solid fa-clone";
-                }, 2500);
+                    label.textContent = originalText;
+                    label.classList.remove("text-emerald-400");
+                }, 2000);
             });
         }
+
+        // Live Abfrage der Serverdaten über die kostenlose Minecraft-API (mcsrvstat.us)
+        async function fetchServerStatus() {
+            try {
+                const response = await fetch('https://api.mcsrvstat.us/3/HyperGrid.any-hosting.de');
+                const data = await response.json();
+                const playerCountElem = document.getElementById('player-count');
+                
+                if (data.online) {
+                    playerCountElem.textContent = `${data.players.online} / ${data.players.max}`;
+                } else {
+                    playerCountElem.textContent = "Offline";
+                    playerCountElem.classList.add("text-rose-400");
+                }
+            } catch (e) {
+                document.getElementById('player-count').textContent = "Online";
+            }
+        }
+        
+        fetchServerStatus();
+        setInterval(fetchServerStatus, 60000); // Alle 60 Sekunden aktualisieren
     </script>
 </body>
 </html>
+
 
