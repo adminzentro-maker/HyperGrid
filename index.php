@@ -85,8 +85,8 @@
                 <a href="#connect" class="px-6 py-3.5 rounded-2xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm tracking-wide transition-all shadow-lg shadow-sky-500/25 flex items-center gap-2">
                     <i class="fa-solid fa-gamepad"></i> Loslegen
                 </a>
-                <a href="#" class="px-6 py-3.5 rounded-2xl glass hover:bg-slate-800/80 font-semibold text-sm transition-all text-slate-300">
-                    Regelwerk
+                <a href="#rules" class="px-6 py-3.5 rounded-2xl glass hover:bg-slate-800/80 font-semibold text-sm transition-all text-slate-300">
+                    Regelwerk lesen
                 </a>
             </div>
         </div>
@@ -138,12 +138,43 @@
             </a>
         </div>
 
+        <!-- Regeln Bento Box (Spans 3 columns / volle Breite) -->
+        <div id="rules" class="glass md:col-span-3 rounded-3xl p-8 sm:p-10">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold">Server-Regelwerk</h3>
+                    <p class="text-xs text-slate-400">Für ein faires und angenehmes Miteinander auf HyperGrid.</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-slate-900/40 border border-white/5 p-4 rounded-2xl">
+                    <div class="text-sky-400 font-bold mb-1 text-sm">01. Kein Griefing</div>
+                    <p class="text-xs text-slate-400">Das zerstören oder bauen auf fremden Grundstücken ohne Erlaubnis ist strengstens untersagt.</p>
+                </div>
+                <div class="bg-slate-900/40 border border-white/5 p-4 rounded-2xl">
+                    <div class="text-sky-400 font-bold mb-1 text-sm">02. Respekt</div>
+                    <p class="text-xs text-slate-400">Behandle jeden Mitspieler mit Respekt. Beleidigungen, Rassismus oder Mobbing werden nicht toleriert.</p>
+                </div>
+                <div class="bg-slate-900/40 border border-white/5 p-4 rounded-2xl">
+                    <div class="text-sky-400 font-bold mb-1 text-sm">03. Keine Hacks</div>
+                    <p class="text-xs text-slate-400">Die Nutzung von Cheat-Clients, X-Ray oder unfairen Mods führt zum sofortigen permanenten Ausschluss.</p>
+                </div>
+                <div class="bg-slate-900/40 border border-white/5 p-4 rounded-2xl">
+                    <div class="text-sky-400 font-bold mb-1 text-sm">04. Team-Anweisungen</div>
+                    <p class="text-xs text-slate-400">Anweisungen des Server-Teams (Admins/Mods) ist stets Folge zu leisten.</p>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Footer -->
     <footer class="w-full max-w-5xl mx-auto px-6 py-6 text-center text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
         <p>&copy; 2026 HyperGrid Minecraft Server. Alle Rechte vorbehalten.</p>
-        <p class="font-mono text-slate-600">Design v4.0 Next-Gen</p>
+        <p class="font-mono text-slate-600">Design v4.1 mit Regelwerk</p>
     </footer>
 
     <!-- Script für IP Copy & Live Player Count -->
@@ -163,7 +194,6 @@
             });
         }
 
-        // Live Abfrage der Serverdaten über die kostenlose Minecraft-API (mcsrvstat.us)
         async function fetchServerStatus() {
             try {
                 const response = await fetch('https://api.mcsrvstat.us/3/HyperGrid.any-hosting.de');
@@ -182,9 +212,7 @@
         }
         
         fetchServerStatus();
-        setInterval(fetchServerStatus, 60000); // Alle 60 Sekunden aktualisieren
+        setInterval(fetchServerStatus, 60000);
     </script>
 </body>
 </html>
-
-
