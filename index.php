@@ -58,9 +58,14 @@
             </div>
             <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">HyperGrid</span>
         </div>
-        <a href="#discord" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 hover:bg-indigo-600/30 transition-all">
-            <i class="fa-brands fa-discord"></i> Community
-        </a>
+        <div class="flex items-center gap-3">
+            <a href="team.html" class="px-4 py-2 rounded-full text-xs font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20 hover:bg-sky-500/20 transition-all">
+                <i class="fa-solid fa-users"></i> Team
+            </a>
+            <a href="#discord" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 hover:bg-indigo-600/30 transition-all">
+                <i class="fa-brands fa-discord"></i> Community
+            </a>
+        </div>
     </header>
 
     <!-- Main Bento Grid Container -->
@@ -173,8 +178,8 @@
 
     <!-- Footer -->
     <footer class="w-full max-w-5xl mx-auto px-6 py-6 text-center text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
-        <p>&copy; 2026 HyperGrid Minecraft Server. Alle Rechte vorbehalten.</p>
-        <p class="font-mono text-slate-600">Design v4.1 mit Regelwerk</p>
+        <p>&copy; <?php echo date("Y"); ?> HyperGrid Minecraft Server. Alle Rechte vorbehalten.</p>
+        <p class="font-mono text-slate-600">Design v4.3 PHP Edition</p>
     </footer>
 
     <!-- Script für IP Copy & Live Player Count -->
@@ -196,7 +201,7 @@
 
         async function fetchServerStatus() {
             try {
-                const response = await fetch('https://api.mcsrvstat.us/3/HyperGrid.any-hosting.de');
+                const response = att= await fetch('https://api.mcsrvstat.us/3/HyperGrid.any-hosting.de');
                 const data = await response.json();
                 const playerCountElem = document.getElementById('player-count');
                 
