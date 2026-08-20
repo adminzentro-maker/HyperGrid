@@ -14,3 +14,7 @@ RewriteRule ^ /%1 [NC,L,R=301]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.html -f
 RewriteRule ^ %{REQUEST_URI}.html [L]
+RewriteEngine On
+
+# TEST: Wenn das funktioniert, bekommst du einen Fehler 500
+RewriteRule ^test123$ / [R=302,L]
