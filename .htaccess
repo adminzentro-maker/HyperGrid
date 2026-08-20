@@ -1,0 +1,16 @@
+# ==============================================================================
+# HTML-ENDUNGEN AUS DER URL ENTFERNEN
+# ==============================================================================
+
+# 1. index.html leitet automatisch auf die Hauptseite (/) um
+RewriteCond %{THE_REQUEST} /index\.html [NC]
+RewriteRule ^(.*)index\.html$ /$1 [L,R=301]
+
+# 2. Alle anderen .html-Dateien leiten auf die URL ohne Endung um (z.B. kontakt.html -> kontakt)
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1 [NC,L,R=301]
+
+# 3. Im Hintergrund die .html-Datei laden, wenn die URL ohne Endung aufgerufen wird
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^ %{REQUEST_URI}.html [L]
